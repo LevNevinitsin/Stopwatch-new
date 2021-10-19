@@ -22,16 +22,9 @@ const millisecondsNode = stopwatchNode.querySelector('.js-milliseconds');
 const startButton = stopwatchNode.querySelector('.js-start');
 const resetButton = stopwatchNode.querySelector('.js-reset');
 
-const audioNotification = new Audio('../bell.wav');
-console.log(audioNotification);
-const audioNotification1 = new Audio('bell.wav');
-console.log(audioNotification1);
-const audioNotification2 = new Audio('audio/bell.wav');
-console.log(audioNotification2);
-const audioNotification3 = new Audio('../audio/bell.wav');
-console.log(audioNotification3);
+const audioNotification = new Audio('audio/bell.wav');
 
-audioNotification.volume = 0.1;
+audioNotification.volume = 0.4;
 
 const myWorker = new Worker('js/worker.js');
 
@@ -105,7 +98,7 @@ const stopCount = () => {
 }
 
 const onSampleButtonChange = (evt) => {
-  audioNotification.src = `/audio/${evt.target.value}.wav`;
+  audioNotification.src = `audio/${evt.target.value}.wav`;
 }
 
 const onVolumeNodeChange = () => {
