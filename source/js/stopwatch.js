@@ -83,7 +83,6 @@ myWorker.onmessage = function(evt) {
 }
 
 const startCount = () => {
-  // stopwatchInterval = setInterval(rewriteTime, 63);
   myWorker.postMessage({
     'message': 'start'
   });
@@ -98,8 +97,7 @@ const stopCount = () => {
 }
 
 const onSampleButtonChange = (evt) => {
-  audioNotification.src = `../audio/${evt.target.value}.wav`;
-  // audioNotification.load();
+  audioNotification.src = `js/audio/${evt.target.value}.wav`;
 }
 
 const onVolumeNodeChange = () => {
