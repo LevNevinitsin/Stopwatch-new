@@ -4,6 +4,7 @@
 
 .navigation__list {
   display: flex;
+
   @include reset-list;
 }
 

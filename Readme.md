@@ -1,1 +1,1 @@
-Test.
+Simple stopwatch.

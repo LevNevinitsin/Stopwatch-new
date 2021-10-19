@@ -178,4 +178,3 @@ volumeNode.addEventListener('change', onVolumeNodeChange)
 testSoundButton.addEventListener('click', onTestSoundButtonClick);
 startButton.addEventListener('click', onStartButtonClick);
 resetButton.addEventListener('click', onResetButtonClick);
-
