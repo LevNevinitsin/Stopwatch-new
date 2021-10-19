@@ -1,0 +1,24 @@
+// Global
+
+@import "variables.scss";
+@import "global.scss";
+@import "fonts.scss";
+@import "mixins.scss";
+
+// Blocks
+
+@import "blocks/stopwatch.scss";
+
+// Common
+@import "blocks/button.scss";
+@import "blocks/input.scss";
+@import "blocks/radio.scss";
+
+// Body, header, footer
+@import "blocks/page.scss";
+@import "blocks/page-main.scss";
+@import "blocks/page-header.scss";
+@import "blocks/navigation.scss";
+
+// Miscellaneous
+@import "blocks/visually-hidden.scss";

@@ -1,0 +1,14 @@
+.navigation {
+  padding: 30px;
+}
+
+.navigation__list {
+  display: flex;
+  @include reset-list;
+}
+
+.navigation__item {
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}

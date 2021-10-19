@@ -1,0 +1,98 @@
+.stopwatch {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.stopwatch__sound {
+  width: max-content;
+  margin: 0 auto 60px;
+}
+
+.stopwatch__samples {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.stopwatch__sample {
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.stopwatch__volume {
+  margin: 0 0 10px;
+}
+
+.stopwatch__test-sound {
+  margin: 0;
+
+  text-align: center;
+}
+
+.stopwatch__inputs {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 40px;
+}
+
+.stopwatch__control {
+  &:not(:last-child) {
+    margin-right: 60px;
+  }
+}
+
+.stopwatch__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stopwatch__time {
+  position: relative;
+
+  display: flex;
+  align-items: flex-end;
+  width: min-content;
+  margin: 0 auto 100px;
+
+  font-size: 150px;
+  line-height: 1;
+
+  &::before {
+    content: "-";
+    position: absolute;
+    top: 0;
+    right: 100%;
+
+    display: none;
+  }
+
+  &--negative {
+    &::before {
+      display: inline;
+    }
+  }
+}
+
+.stopwatch__milliseconds {
+  padding-bottom: 10px;
+
+  font-size: 50px;
+
+  vertical-align: text-bottom;
+}
+
+.stopwatch__controls {
+  display: flex;
+  justify-content: center;
+}
+
+.stopwatch__button {
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+}
+
