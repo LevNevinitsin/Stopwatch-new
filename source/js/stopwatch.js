@@ -23,6 +23,10 @@ const startButton = stopwatchNode.querySelector('.js-start');
 const resetButton = stopwatchNode.querySelector('.js-reset');
 
 const audioNotification = new Audio('../bell.wav');
+const audioNotification1 = new Audio('bell.wav');
+const audioNotification2 = new Audio('audio/bell.wav');
+const audioNotification3 = new Audio('../audio/bell.wav');
+
 audioNotification.volume = 0.1;
 
 const myWorker = new Worker('js/worker.js');
