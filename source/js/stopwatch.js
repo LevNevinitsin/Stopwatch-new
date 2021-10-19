@@ -98,7 +98,7 @@ const stopCount = () => {
 }
 
 const onSampleButtonChange = (evt) => {
-  audioNotification.src = `audio/${evt.target.value}.wav`;
+  audioNotification.src = `audio/${evt.target.value}.mp3`;
 }
 
 const onVolumeNodeChange = () => {
