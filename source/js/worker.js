@@ -1,9 +1,11 @@
 
-const sendCurrentDate = () => postMessage(Date.now());
+const sendCurrentDate = () => { postMessage(1) };
 
 onmessage = function (evt) {
-  if (evt.data.message === 'start') {
-    stopwatchInterval = setInterval(sendCurrentDate, 63);
+  const evtData = evt.data;
+
+  if (evtData.message === 'start') {
+    stopwatchInterval = setInterval(sendCurrentDate, evtData.refreshInterval);
   } else {
     clearInterval(stopwatchInterval);
   }

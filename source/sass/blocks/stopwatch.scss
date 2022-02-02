@@ -75,6 +75,14 @@
       display: inline;
     }
   }
+
+  &--blue {
+    color: $blue;
+  }
+
+  &--green {
+    color: $green;
+  }
 }
 
 .stopwatch__milliseconds {

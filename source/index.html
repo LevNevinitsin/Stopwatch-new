@@ -12,14 +12,14 @@
   </head>
   <body class="page__body">
 
-    <header class="page-header">
+    <!-- <header class="page-header">
       <nav class="page-header__navigation navigation">
         <ul class="navigation__list">
           <li class="navigation__item"><button class="navigation__button button button--navigation" data-name="simple">Simple</button></li>
           <li class="navigation__item"><button class="navigation__button button button--navigation" data-name="timings">Timings</button></li>
         </ul>
       </nav>
-    </header>
+    </header> -->
 
     <main class="page-main">
       <div class="stopwatch js-stopwatch" data-name="simple">
@@ -31,7 +31,7 @@
                 <span class="radio__text">Bell</span>
               </label>
               <label class="stopwatch__sample radio">
-                <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth2">
+                <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth">
                 <span class="radio__text">Synth</span>
               </label>
             </div>
@@ -48,11 +48,23 @@
           <div class="stopwatch__inputs">
             <label class="stopwatch__control">
               <span>Predelay, seconds:</span>
-              <input class="input js-predelay" type="number" value="70">
+              <input class="input js-predelay" type="number" value="0">
+            </label>
+            <label class="stopwatch__control js-alarm-period">
+              <span>Alarm period, seconds:</span>
+              <input class="input js-alarm-period-input" type="number" min="0" value="1">
+            </label>
+            <label class="stopwatch__control js-exercise-period">
+              <span>Exercise period, seconds:</span>
+              <input class="input js-exercise-period-input" type="number" min="0" value="1">
+            </label>
+            <label class="stopwatch__control js-rest-period">
+              <span>Rest period, seconds:</span>
+              <input class="input js-rest-period-input" type="number" min="0" value="2">
             </label>
             <label class="stopwatch__control">
-              <span>Timing, second:</span>
-              <input class="input js-timing" type="number" value="40">
+              <span>Reference second:</span>
+              <input class="input js-reference-second" type="number" value="0">
             </label>
           </div>
         </form>
@@ -81,6 +93,6 @@
 
     </footer>
 
-    <script src="js/script.min.js"></script>
+    <script type="module" src="js/stopwatch.js"></script>
   </body>
 </html>

@@ -38,15 +38,22 @@ const html = () => {
 }
 
 // Scripts
+// const scripts = () => {
+//   return gulp.src([
+//       "source/js/**/*.js",
+//       "!source/js/worker.js"
+//     ])
+//     .pipe(sourcemap.init())
+//     .pipe(concat("script.min.js"))
+//     .pipe(uglify())
+//     .pipe(sourcemap.write("."))
+//     .pipe(gulp.dest("build/js"))
+//     .pipe(sync.stream());
+// }
+
+// Scripts
 const scripts = () => {
-  return gulp.src([
-      "source/js/**/*.js",
-      "!source/js/worker.js"
-    ])
-    .pipe(sourcemap.init())
-    .pipe(concat("script.min.js"))
-    .pipe(uglify())
-    .pipe(sourcemap.write("."))
+  return gulp.src("source/js/**/*.js")
     .pipe(gulp.dest("build/js"))
     .pipe(sync.stream());
 }
