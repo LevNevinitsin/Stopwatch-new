@@ -27,21 +27,27 @@
 }
 
 .stopwatch__test-sound {
+  display: flex;
+  justify-content: center;
   margin: 0;
-
-  text-align: center;
 }
 
 .stopwatch__inputs {
   display: flex;
   justify-content: center;
-  margin: 0 0 40px;
+  margin: 0 0 20px;
 }
 
 .stopwatch__control {
   &:not(:last-child) {
     margin-right: 60px;
   }
+}
+
+.stopwatch__defaults {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 40px;
 }
 
 .stopwatch__container {
