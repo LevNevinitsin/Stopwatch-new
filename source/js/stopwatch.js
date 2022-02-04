@@ -28,7 +28,7 @@ const stopwatchConfig = {
   alarmVolume        : volumeNode.value,
   predelay           : predelayNode.value,
   isTrainingMode     : true,
-  refreshInterval    : 60,
+  refreshInterval    : 41,
   stopwatchNode      : stopwatchNode,
   alarmPeriodNode    : alarmPeriodNode,
   exercisePeriodNode : exercisePeriodNode,

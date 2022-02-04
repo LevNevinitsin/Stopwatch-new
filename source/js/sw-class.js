@@ -11,7 +11,6 @@ class Stopwatch {
   #alarmSound;
 
   #predelay;
-  #isPositive;
 
   #alarmPeriod;
   #periodTimestamp;
@@ -47,7 +46,6 @@ class Stopwatch {
     this.#alarmSound.volume  = parseInt(config.alarmVolume) / 100;
 
     this.#predelay           = parseInt(config.predelay) * 1000;
-    this.#isPositive         = this.#predelay === 0;
     this.#alarmPeriodNode    = config.alarmPeriodNode;
     this.#exercisePeriodNode = config.exercisePeriodNode
     this.#restPeriodNode     = config.restPeriodNode
@@ -99,7 +97,7 @@ class Stopwatch {
     if (this.state === 'reset') {
       this.#startTimestamp = Date.now();
 
-      if (!this.#isPositive) {
+      if (this.#predelay !== 0) {
         this.#timeNode.classList.add(this.#NEGATIVE_CLASS);
       }
     } else {
@@ -130,7 +128,6 @@ class Stopwatch {
     this.#secondsNode.textContent      = '00';
     this.#millisecondsNode.textContent = '00';
 
-    this.#isPositive        = this.#predelay === 0;
     this.#timePassedOnPause = 0;
     this.#periodTimestamp   = null;
 
@@ -156,7 +153,7 @@ class Stopwatch {
   }
 
   setPredelay(value) {
-    this.#predelay = parseInt(value) * 1000;
+    this.#predelay = Math.abs(parseInt(value)) * 1000;
   }
 
   setAlarmPeriod(value) {
@@ -204,13 +201,23 @@ class Stopwatch {
     console.log(timePassed, this.#trainingState, now - this.#periodTimestamp);
 
     this.#renderTime(timePassed);
-    this.#handlePeriods(timePassed, now);
+
+    if (timePassed >= 0) {
+      this.#handlePeriods(timePassed, now);
+    }
   }
 
   #renderTime(timePassed) {
-    if (!this.#isPositive && timePassed >= 0) {
-      this.#isPositive = true;
+    const isPositiveTime = timePassed >= 0;
+
+    if (this.#timeNode.classList.contains(this.#NEGATIVE_CLASS) && isPositiveTime) {
       this.#timeNode.classList.remove(this.#NEGATIVE_CLASS);
+    } else if (!this.#timeNode.classList.contains(this.#NEGATIVE_CLASS) && !isPositiveTime) {
+      this.#timeNode.classList.add(this.#NEGATIVE_CLASS);
+
+      if (this.#timeNode.classList.contains(this.#trainingPeriodsMap[this.#trainingState].colorClass)) {
+        this.#timeNode.classList.remove(this.#trainingPeriodsMap[this.#trainingState].colorClass);
+      }
     }
 
     this.#millisecondsNode.textContent = Util.addZeroes(Math.floor((timePassed % 1000) / 10), 2);
@@ -218,7 +225,7 @@ class Stopwatch {
     const totalMinutesCount = timePassed / 60000;
     const totalHoursCount   = timePassed / 3600000;
 
-    if (this.#isPositive) {
+    if (isPositiveTime) {
       this.#secondsNode.textContent = Util.addZeroes(Math.floor(totalSecondsCount) % 60, 2);
       this.#minutesNode.textContent = Util.addZeroes(Math.floor(totalMinutesCount) % 60, 2);
       this.#hoursNode.textContent   = Util.addZeroes(Math.floor(totalHoursCount), 2);
@@ -233,7 +240,7 @@ class Stopwatch {
     const isTrainingMode = this.#isTrainingMode;
 
     if (!this.#periodTimestamp && timePassed > this.#referenceSecond * 1000) {
-      this.#periodTimestamp = now - this.#refreshInterval * 1.5;
+      this.#periodTimestamp = now - this.#refreshInterval;
 
       if (isTrainingMode) {
         this.#trainingState = this.#TRAINING_STATE_EXERCISE;
@@ -253,7 +260,7 @@ class Stopwatch {
       this.#periodTimestamp += currentPeriodLength;
 
       if (isTrainingMode) {
-        this.#manageColor();
+        this.#manageColor(timePassed);
         this.#trainingState = this.#trainingPeriodsMap[this.#trainingState].nextState;
         this.setAlarmSound(this.#trainingPeriodsMap[this.#trainingState].alarmSound);
       }

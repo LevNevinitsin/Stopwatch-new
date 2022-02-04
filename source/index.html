@@ -48,7 +48,7 @@
           <div class="stopwatch__inputs">
             <label class="stopwatch__control">
               <span>Predelay, seconds:</span>
-              <input class="input js-predelay" type="number" value="0">
+              <input class="input js-predelay" type="number" min="0" value="0">
             </label>
             <label class="stopwatch__control js-alarm-period">
               <span>Alarm period, seconds:</span>
@@ -56,11 +56,11 @@
             </label>
             <label class="stopwatch__control js-exercise-period">
               <span>Exercise period, seconds:</span>
-              <input class="input js-exercise-period-input" type="number" min="0" value="1">
+              <input class="input js-exercise-period-input" type="number" min="0" value="35">
             </label>
             <label class="stopwatch__control js-rest-period">
               <span>Rest period, seconds:</span>
-              <input class="input js-rest-period-input" type="number" min="0" value="2">
+              <input class="input js-rest-period-input" type="number" min="0" value="85">
             </label>
             <label class="stopwatch__control">
               <span>Reference second:</span>
