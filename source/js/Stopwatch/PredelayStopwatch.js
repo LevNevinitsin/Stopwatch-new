@@ -1,4 +1,4 @@
-import { Util } from './../Util.js';
+import { Util } from '../Util.js';
 import { Stopwatch } from './Stopwatch.js';
 
 class PredelayStopwatch extends Stopwatch {

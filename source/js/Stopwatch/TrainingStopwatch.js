@@ -1,6 +1,6 @@
-import { Util }              from './../Util.js';
-import { ClockFace }         from './../Clockface.js';
-import { Alarmer }           from './../Alarmer.js';
+import { Util }              from '../Util.js';
+import { ClockFace }         from '../Clockface.js';
+import { Alarmer }           from '../Alarmer.js';
 import { PredelayStopwatch } from './PredelayStopwatch.js';
 
 class TrainingStopwatch extends PredelayStopwatch {

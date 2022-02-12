@@ -1,4 +1,4 @@
-import { ClockFace } from './../Clockface.js';
+import { ClockFace } from '../Clockface.js';
 
 class Stopwatch {
   _DEFAULT_REFRESH_INTERVAL = 41;
