@@ -15,16 +15,12 @@ class PredelayStopwatch extends Stopwatch {
   _loadDefaultsNode;
   _defaultsConfig;
 
-  _defaults;
-
   constructor(config) {
     super(config);
     this._predelayInputNode = this._stopwatchNode.querySelector(this._PREDELAY_INPUT_SELECTOR);
     this._saveDefaultsNode  = this._stopwatchNode.querySelector(this._SAVE_DEFAULTS_NODE_SELECTOR);
     this._loadDefaultsNode  = this._stopwatchNode.querySelector(this._LOAD_DEFAULTS_NODE_SELECTOR);
     this._setPredelay(this._predelayInputNode.value);
-
-    this._loadDefaults();
 
     this._predelayInputNode.addEventListener('change', (evt) => {
       this._setPredelay(evt.target.value);
@@ -35,7 +31,13 @@ class PredelayStopwatch extends Stopwatch {
     });
 
     this._loadDefaultsNode.addEventListener('click', () => {
-      this._loadDefaults();
+      this.loadDefaults();
+    });
+  }
+
+  loadDefaults() {
+    this._DEFAULTS.forEach((parameterName) => {
+      Util.loadValueFromLocalStorage(this[`_${parameterName}InputNode`], parameterName, this._DEFAULTS_PREFIX);
     });
   }
 
@@ -54,12 +56,6 @@ class PredelayStopwatch extends Stopwatch {
   _saveDefaults() {
     this._DEFAULTS.forEach((parameterName) => {
       localStorage.setItem(`${this._DEFAULTS_PREFIX}_${parameterName}`, this[`_${parameterName}InputNode`].value);
-    });
-  }
-
-  _loadDefaults() {
-    this._DEFAULTS.forEach((parameterName) => {
-      Util.loadValueFromLocalStorage(this[`_${parameterName}InputNode`], parameterName, this._DEFAULTS_PREFIX);
     });
   }
 }

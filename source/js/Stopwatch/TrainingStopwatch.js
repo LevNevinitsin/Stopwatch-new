@@ -6,7 +6,6 @@ import { PredelayStopwatch } from './PredelayStopwatch.js';
 class TrainingStopwatch extends PredelayStopwatch {
   _EXERCISE_CLOCK_FACE_NODE_SELECTOR       = '.js-exercise-clockface';
   _REST_CLOCK_FACE_NODE_SELECTOR           = '.js-rest-clockface';
-  _EXERCISE_PERIOD_CONTAINER_NODE_SELECTOR = '.js-exercise-period';
   _EXERCISE_PERIOD_INPUT_SELECTOR          = '.js-exercise-period-input';
   _REST_PERIOD_INPUT_SELECTOR              = '.js-rest-period-input';
   _EXERCISE_ALARMER_NODE_SELECTOR          = '.js-exercise-alarmer';
@@ -15,11 +14,9 @@ class TrainingStopwatch extends PredelayStopwatch {
   _DEFAULTS_PREFIX                         = 'training';
   _EXERCISE_MODES_INPUTS_SELECTOR          = '.js-exercise-mode-input';
   _FINISH_EXERCISE_NODE_SELECTOR           = '.js-finish-exercise';
-  _EXERCISE_PERIOD_DISABLED_CLASS          = 'stopwatch__control--disabled';
 
   _exerciseClockFaceNode;
   _restClockFaceNode;
-  _exercisePeriodContainerNode;
   _exercisePeriodInputNode;
   _restPeriodInputNode;
   _exerciseAlarmerNode;
@@ -27,8 +24,6 @@ class TrainingStopwatch extends PredelayStopwatch {
 
   _exerciseClockFace;
   _restClockFace;
-  _exercisePeriod;
-  _restPeriod;
 
   _currentPeriodName;
   _periodTimestamp;
@@ -44,15 +39,14 @@ class TrainingStopwatch extends PredelayStopwatch {
   constructor(config) {
     super(config);
 
-    this._exerciseClockFaceNode       = this._stopwatchNode.querySelector(this._EXERCISE_CLOCK_FACE_NODE_SELECTOR);
-    this._restClockFaceNode           = this._stopwatchNode.querySelector(this._REST_CLOCK_FACE_NODE_SELECTOR);
-    this._exercisePeriodContainerNode = this._stopwatchNode.querySelector(this._EXERCISE_PERIOD_CONTAINER_NODE_SELECTOR);
-    this._exercisePeriodInputNode     = this._stopwatchNode.querySelector(this._EXERCISE_PERIOD_INPUT_SELECTOR);
-    this._restPeriodInputNode         = this._stopwatchNode.querySelector(this._REST_PERIOD_INPUT_SELECTOR);
-    this._exerciseAlarmerNode         = this._stopwatchNode.querySelector(this._EXERCISE_ALARMER_NODE_SELECTOR);
-    this._restAlarmerNode             = this._stopwatchNode.querySelector(this._REST_ALARMER_NODE_SELECTOR);
-    this._exerciseModesInputs         = this._stopwatchNode.querySelectorAll(this._EXERCISE_MODES_INPUTS_SELECTOR);
-    this._finishExerciseNode          = this._stopwatchNode.querySelector(this._FINISH_EXERCISE_NODE_SELECTOR);
+    this._exerciseClockFaceNode   = this._stopwatchNode.querySelector(this._EXERCISE_CLOCK_FACE_NODE_SELECTOR);
+    this._restClockFaceNode       = this._stopwatchNode.querySelector(this._REST_CLOCK_FACE_NODE_SELECTOR);
+    this._exercisePeriodInputNode = this._stopwatchNode.querySelector(this._EXERCISE_PERIOD_INPUT_SELECTOR);
+    this._restPeriodInputNode     = this._stopwatchNode.querySelector(this._REST_PERIOD_INPUT_SELECTOR);
+    this._exerciseAlarmerNode     = this._stopwatchNode.querySelector(this._EXERCISE_ALARMER_NODE_SELECTOR);
+    this._restAlarmerNode         = this._stopwatchNode.querySelector(this._REST_ALARMER_NODE_SELECTOR);
+    this._exerciseModesInputs     = this._stopwatchNode.querySelectorAll(this._EXERCISE_MODES_INPUTS_SELECTOR);
+    this._finishExerciseNode      = this._stopwatchNode.querySelector(this._FINISH_EXERCISE_NODE_SELECTOR);
 
     this._exerciseClockFace = new ClockFace(this._exerciseClockFaceNode, false);
     this._restClockFace     = new ClockFace(this._restClockFaceNode, false);
@@ -77,12 +71,6 @@ class TrainingStopwatch extends PredelayStopwatch {
     this._exerciseMode = Util.findCheckedRadioInput(this._exerciseModesInputs).value;
     this._changeExerciseMode(this._exerciseMode);
 
-    this._loadAlarmersAndExerciseModeDefaults();
-
-    this._loadDefaultsNode.addEventListener('click', () => {
-      this._loadAlarmersAndExerciseModeDefaults();
-    });
-
     this._exercisePeriodInputNode.addEventListener('change', (evt) => {
       this._setExercisePeriod(evt.target.value);
     });
@@ -102,6 +90,24 @@ class TrainingStopwatch extends PredelayStopwatch {
     });
   }
 
+  loadDefaults() {
+    super.loadDefaults();
+
+    // Грузим дефолты для алармеров
+    Object.entries(this._periodsMap).forEach(([alarmerName, periodProperties]) => {
+      periodProperties.alarmer.loadDefaults(alarmerName);
+    });
+
+    // Грузим дефолт для режима упражнений
+    const defaultExerciseMode = localStorage.getItem(`${this._DEFAULTS_PREFIX}_exerciseMode`);
+    const neededExerciseModeInput = Util.findRadioInputByValue(this._exerciseModesInputs, defaultExerciseMode);
+
+    if (neededExerciseModeInput && neededExerciseModeInput.checked === false) {
+      neededExerciseModeInput.checked = true;
+      neededExerciseModeInput.dispatchEvent(new Event('change'));
+    }
+  }
+
   _start() {
     if (this._state === 'reset') {
       this._startTimestamp = Date.now();
@@ -112,33 +118,18 @@ class TrainingStopwatch extends PredelayStopwatch {
       if (this._periodTimestamp) {
         this._periodTimestamp += lastPauseDuration;
       }
-
-      if (this._exerciseMode === 'manual') {
-        this._disableExerciseAutoModeOption();
-      }
     }
 
     this._state = 'counting';
     this._startCount();
   }
 
-  _pause() {
-    super._pause();
-
-    if (this._exerciseMode === 'manual' && this._currentPeriodName === 'exercise') {
-      this._enableExerciseAutoModeOption();
-    }
-  }
-
   _reset() {
     super._reset();
     this._periodTimestamp = null;
-    this._currentPeriodName = 'exercise';
+    this._currentPeriodName = null;
     this._resetPeriodsClockFaces();
-
-    if (this._exerciseMode === 'manual' && this._currentPeriodName === 'exercise') {
-      this._enableExerciseAutoModeOption();
-    }
+    this._finishExerciseNode.disabled = true;
   }
 
   _setExercisePeriod(value) {
@@ -161,6 +152,7 @@ class TrainingStopwatch extends PredelayStopwatch {
       return;
     }
 
+    // Если в какой-то момент оказалось, что время отрицательное, а метка периода уже есть
     if (this._periodTimestamp) {
       this._periodTimestamp = null;
       this._resetPeriodsClockFaces();
@@ -175,35 +167,32 @@ class TrainingStopwatch extends PredelayStopwatch {
 
       if (this._exerciseMode === 'manual') {
         this._finishExerciseNode.disabled = false;
-        this._disableExerciseAutoModeOption();
       }
 
       return;
     }
 
-    const currentPeriodName = this._currentPeriodName;
-    const currentPeriod = this._periodsMap[currentPeriodName];
-    const currentPeriodDuration = currentPeriod.duration;
+    const currentPeriodName       = this._currentPeriodName;
+    const currentPeriod           = this._periodsMap[currentPeriodName];
+    const currentPeriodDuration   = currentPeriod.duration;
+    const isCurrentPeriodExercise = currentPeriodName === 'exercise';
+    const isExerciseModeManual    = this._exerciseMode === 'manual';
 
-    if (this._exerciseMode === 'manual') {
-      const isCurrentPeriodExercise = currentPeriodName === 'exercise';
-      const periodTimePassed = isCurrentPeriodExercise
-        ? now - this._periodTimestamp
-        : now - this._periodTimestamp - currentPeriodDuration;
+    const periodTimePassed = isExerciseModeManual && isCurrentPeriodExercise
+      ? now - this._periodTimestamp
+      : now - this._periodTimestamp - currentPeriodDuration;
 
-      currentPeriod.clockFace.renderTime(periodTimePassed);
+    currentPeriod.clockFace.renderTime(periodTimePassed);
 
-      if (!isCurrentPeriodExercise && periodTimePassed > 0) {
-        this._swtichPeriod(currentPeriod, currentPeriodDuration);
-        this._finishExerciseNode.disabled = false;
-        this._disableExerciseAutoModeOption();
+    if (periodTimePassed >= 0) {
+      if (!isExerciseModeManual) {
+        this._switchPeriod(currentPeriod, currentPeriodDuration);
+        return;
       }
-    } else {
-      const periodTimePassed = now - this._periodTimestamp - currentPeriodDuration;
-      currentPeriod.clockFace.renderTime(periodTimePassed);
 
-      if (periodTimePassed > 0) {
-        this._swtichPeriod(currentPeriod, currentPeriodDuration);
+      if (!isCurrentPeriodExercise) {
+        this._switchPeriod(currentPeriod, currentPeriodDuration);
+        this._finishExerciseNode.disabled = false;
       }
     }
   }
@@ -224,60 +213,42 @@ class TrainingStopwatch extends PredelayStopwatch {
     localStorage.setItem(`${this._DEFAULTS_PREFIX}_exerciseMode`, this._exerciseMode);
   }
 
-  _loadAlarmersAndExerciseModeDefaults() {
-    this._loadAlarmersDefaults();
-    this._loadExerciseModeDefault();
-  }
-
-  _loadAlarmersDefaults() {
-    Object.entries(this._periodsMap).forEach(([alarmerName, periodProperties]) => {
-      periodProperties.alarmer.loadDefaults(alarmerName);
-    });
-  }
-
-  _loadExerciseModeDefault() {
-    const defaultExerciseMode = localStorage.getItem(`${this._DEFAULTS_PREFIX}_exerciseMode`);
-    const neededExerciseModeInput = Util.findRadioInputByValue(this._exerciseModesInputs, defaultExerciseMode);
-
-    if (neededExerciseModeInput && neededExerciseModeInput.checked === false) {
-      neededExerciseModeInput.checked = true;
-      neededExerciseModeInput.dispatchEvent(new Event('change'));
-    }
-  }
-
   _changeExerciseMode(modeName) {
     this._exerciseMode = modeName;
 
-    if (modeName === 'manual') {
-      this._exercisePeriodInputNode.disabled = true;
-      this._exercisePeriodContainerNode.classList.add(this._EXERCISE_PERIOD_DISABLED_CLASS);
-    } else {
-      this._exercisePeriodInputNode.disabled = false;
-      this._exercisePeriodContainerNode.classList.remove(this._EXERCISE_PERIOD_DISABLED_CLASS);
+    // Если в данный момент идёт упражнение
+    if (this._currentPeriodName === 'exercise') {
+      // Если мы не на паузе, заново начинаем отсчитывать период
+      if (this._state !== 'paused') {
+        this._periodTimestamp = Date.now();
+      }
+
+      const isfinishExerciseButtonDisabled = this._finishExerciseNode.disabled;
+      const isExerciseModeManual = modeName === 'manual';
+
+      if (isExerciseModeManual && isfinishExerciseButtonDisabled) {
+        this._finishExerciseNode.disabled = false;
+        return;
+      }
+
+      if (!isExerciseModeManual && !isfinishExerciseButtonDisabled) {
+        this._finishExerciseNode.disabled = true;
+      }
     }
   }
 
   _onFinishExerciseNodeClick() {
     const periodTimePassed = Date.now() - this._periodTimestamp;
     const currentPeriod = this._periodsMap[this._currentPeriodName];
-    this._swtichPeriod(currentPeriod, periodTimePassed);
+    this._switchPeriod(currentPeriod, periodTimePassed);
     this._finishExerciseNode.disabled = true;
-    this._enableExerciseAutoModeOption();
   }
 
-  _swtichPeriod(currentPeriod, currentPeriodDuration) {
+  _switchPeriod(currentPeriod, currentPeriodDuration) {
     this._periodTimestamp += currentPeriodDuration;
     currentPeriod.clockFace.reset();
     this._currentPeriodName = currentPeriod.nextPeriodName;
     this._periodsMap[this._currentPeriodName].alarmer.playSound();
-  }
-
-  _enableExerciseAutoModeOption() {
-    Util.findRadioInputByValue(this._exerciseModesInputs, 'auto').disabled = false;
-  }
-
-  _disableExerciseAutoModeOption() {
-    Util.findRadioInputByValue(this._exerciseModesInputs, 'auto').disabled = true;
   }
 }
 

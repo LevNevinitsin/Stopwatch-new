@@ -37,11 +37,11 @@ class AlarmStopwatch extends PredelayStopwatch {
     });
 
     this._alarmer = new Alarmer(this._alarmerNode);
-    this._loadAlarmerDefaults();
+  }
 
-    this._loadDefaultsNode.addEventListener('click', () => {
-      this._loadAlarmerDefaults();
-    });
+  loadDefaults() {
+    super.loadDefaults();
+    this._alarmer.loadDefaults(this._ALARMER_NAME);
   }
 
   _start() {
@@ -105,10 +105,6 @@ class AlarmStopwatch extends PredelayStopwatch {
   _saveDefaults() {
     super._saveDefaults();
     this._alarmer.saveDefaults(this._ALARMER_NAME);
-  }
-
-  _loadAlarmerDefaults() {
-    this._alarmer.loadDefaults(this._ALARMER_NAME);
   }
 }
 

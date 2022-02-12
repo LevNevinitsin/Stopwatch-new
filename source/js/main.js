@@ -19,9 +19,13 @@ const predelayStopwatchConfig = { stopwatchNode: predelayStopwatchNode };
 const alarmStopwatchConfig    = { stopwatchNode: alarmStopwatchNode };
 const trainingStopwatchConfig = { stopwatchNode: trainingStopwatchNode };
 
-new Stopwatch(basicStopwatchConfig);
-new PredelayStopwatch(predelayStopwatchConfig);
-new AlarmStopwatch(alarmStopwatchConfig);
-new TrainingStopwatch(trainingStopwatchConfig);
+const stopwatch         = new Stopwatch(basicStopwatchConfig);
+const predelayStopwatch = new PredelayStopwatch(predelayStopwatchConfig);
+const alarmStopwatch    = new AlarmStopwatch(alarmStopwatchConfig);
+const trainingStopwatch = new TrainingStopwatch(trainingStopwatchConfig);
 
-localStorage.clear();
+predelayStopwatch.loadDefaults();
+alarmStopwatch.loadDefaults();
+trainingStopwatch.loadDefaults();
+
+// localStorage.clear();
