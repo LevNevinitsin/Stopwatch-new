@@ -8,6 +8,8 @@
 // Blocks
 
 @import "blocks/stopwatch.scss";
+@import "blocks/period.scss";
+@import "blocks/switcher.scss";
 
 // Common
 @import "blocks/button.scss";
@@ -22,3 +24,5 @@
 
 // Miscellaneous
 @import "blocks/visually-hidden.scss";
+@import "blocks/display-none.scss";
+

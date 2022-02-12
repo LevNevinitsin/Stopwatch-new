@@ -1,0 +1,50 @@
+.switcher {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+
+.switcher__tabs-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include reset-list;
+
+  min-height: 60px;
+
+  border-bottom: 1px solid $grey;
+}
+
+.switcher__tab-item {
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+}
+
+.switcher__tab-caption {
+  display: block;
+  padding: 5px 10px;
+
+  border-radius: 10px;
+
+  @include transition(0.1s);
+}
+
+.switcher__tab-radio:not(:checked) + .switcher__tab-caption {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light;
+  }
+
+  &:active {
+    padding: 6px 10px 4px;
+  }
+}
+
+.switcher__tab-radio:checked + .switcher__tab-caption {
+  background-color: $light-3;
+
+  cursor: default;
+}

@@ -1,7 +1,7 @@
 {
-  "name": "template1",
+  "name": "stopwatch",
   "private": true,
-  "description": "Темплейт",
+  "description": "Stopwatch",
   "devDependencies": {
     "@htmlacademy/editorconfig-cli": "1.0.0",
     "autoprefixer": "10.0.2",
@@ -43,7 +43,7 @@
     "source/sass/**/*.scss"
   ],
   "engines": {
-    "node": "14.15.0"
+    "node": "16.13.1"
   },
   "author": "Lev Nevinitsin <levnevinitsin@gmail.com>",
   "license": "ISC"

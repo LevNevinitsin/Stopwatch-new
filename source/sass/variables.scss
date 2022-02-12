@@ -19,10 +19,16 @@ $black: #000000;
 $transparent: transparent;
 
 $blue: #000599;
+$light-blue: #d9d9ff;
+$super-light-blue: #f5f5ff;
 $green: #0a7300;
+$light-green: #d9ffd9;
+$super-light-green: #ebffed;
 
 // Miscellaneous
 
 $font-family: "RobotoMono", "Arial", sans-serif;
 
 $default-transition-time: 0.2s;
+
+$box-shadow: 0 10px 40px 0 $light-3;

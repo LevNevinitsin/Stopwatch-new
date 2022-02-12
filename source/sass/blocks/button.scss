@@ -58,6 +58,43 @@
     }
   }
 
+  &--period {
+    padding: 3px 10px;
+
+    border: 1px solid $grey;
+
+    &:active {
+      padding: 4px 10px 2px;
+    }
+  }
+
+  &--finish {
+    min-width: unset;
+    padding: 5px 20px;
+
+    font-size: 14px;
+
+    border: 1px solid $grey;
+
+    @include transition(0.1s);
+
+    :hover {
+      background-color: $light-2;
+    }
+
+    &:active {
+      padding: 6px 20px 4px;
+
+      background-color: $light-3;
+    }
+
+    &:disabled {
+      color: $black;
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
   &--defaults {
     min-width: unset;
     padding: 5px 20px;

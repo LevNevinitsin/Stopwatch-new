@@ -1,4 +1,4 @@
-import { Util } from './util.js';
+import { Util } from './Util.js';
 
 class Stopwatch {
   #DEFAULT_WORKER_PATH     = 'js/worker.js';

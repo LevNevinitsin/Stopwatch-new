@@ -1,3 +1,5 @@
+let stopwatchInterval;
+
 onmessage = function (evt) {
   const evtData = evt.data;
 

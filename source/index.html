@@ -12,83 +12,296 @@
   </head>
   <body class="page__body">
 
-    <!-- <header class="page-header">
-      <nav class="page-header__navigation navigation">
+    <header class="page-header">
+      <!-- <nav class="page-header__navigation navigation">
         <ul class="navigation__list">
           <li class="navigation__item"><button class="navigation__button button button--navigation" data-name="simple">Simple</button></li>
           <li class="navigation__item"><button class="navigation__button button button--navigation" data-name="timings">Timings</button></li>
         </ul>
-      </nav>
-    </header> -->
+      </nav> -->
+    </header>
 
     <main class="page-main">
-      <div class="stopwatch js-stopwatch" data-name="simple">
-        <form class="stopwatch__settings">
-          <div class="stopwatch__sound">
-            <div class="stopwatch__samples">
-              <label class="stopwatch__sample radio">
-                <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="bell" checked>
-                <span class="radio__text">Bell</span>
-              </label>
-              <label class="stopwatch__sample radio">
-                <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth">
-                <span class="radio__text">Synth</span>
-              </label>
+
+      <div class="switcher js-switcher">
+        <ul class="switcher__tabs-list">
+          <li class="switcher__tab-item">
+            <label class="switcher__tab-label">
+              <input class="switcher__tab-radio js-switcher-tab-input visually-hidden" type="radio" name="tab" value="basic">
+              <span class="switcher__tab-caption">Basic</span>
+            </label>
+          </li>
+          <li class="switcher__tab-item">
+            <label class="switcher__tab-label">
+              <input class="switcher__tab-radio js-switcher-tab-input visually-hidden" type="radio" name="tab" value="predelay">
+              <span class="switcher__tab-caption">Predelay</span>
+            </label>
+          </li>
+          <li class="switcher__tab-item">
+            <label class="switcher__tab-label">
+              <input class="switcher__tab-radio js-switcher-tab-input visually-hidden" type="radio" name="tab" value="alarm">
+              <span class="switcher__tab-caption">Alarm</span>
+            </label>
+          </li>
+          <li class="switcher__tab-item">
+            <label class="switcher__tab-label">
+              <input class="switcher__tab-radio js-switcher-tab-input visually-hidden" type="radio" name="tab" value="training" checked>
+              <span class="switcher__tab-caption">Training</span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="switcher__bodies">
+          <div class="stopwatch js-stopwatch js-switcher-body display-none" data-stopwatch-type="basic" data-switcher-body-name="basic">
+            <div class="stopwatch__top-line">
             </div>
-            <p class="stopwatch__volume">
-              <label class="stopwatch__control">
-                <span>Volume (0-100):</span>
-                <input class="input js-volume" type="number" value="40" min="0" max="100">
-              </label>
-            </p>
-            <p class="stopwatch__test-sound">
-              <button class="stopwatch__button button button--sound js-test-sound" type="button">Test sound</button>
-            </p>
+            <div class="stopwatch__middle-line">
+              <div class="stopwatch__clockface-and-controls">
+                <div class="stopwatch__clockface js-clockface">
+                  <span class="stopwatch__hours js-hours">00</span>:
+                  <span class="stopwatch__minutes js-minutes">00</span>:
+                  <span class="stopwatch__seconds js-seconds">00</span>.
+                  <span class="stopwatch__milliseconds js-milliseconds">00</span>
+                </div>
+                <div class="stopwatch__controls">
+                  <button class="stopwatch__button button js-start" type="button">Start</button>
+                  <button class="stopwatch__button button js-reset" type="button">Reset</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="stopwatch__inputs">
-            <label class="stopwatch__control">
-              <span>Predelay, seconds:</span>
-              <input class="input js-predelay" type="number" min="0" value="0">
-            </label>
-            <label class="stopwatch__control js-alarm-period">
-              <span>Alarm period, seconds:</span>
-              <input class="input js-alarm-period-input" type="number" min="0" value="1">
-            </label>
-            <label class="stopwatch__control js-exercise-period">
-              <span>Exercise period, seconds:</span>
-              <input class="input js-exercise-period-input" type="number" min="0" value="35">
-            </label>
-            <label class="stopwatch__control js-rest-period">
-              <span>Rest period, seconds:</span>
-              <input class="input js-rest-period-input" type="number" min="0" value="85">
-            </label>
-            <label class="stopwatch__control">
-              <span>Reference second:</span>
-              <input class="input js-reference-second" type="number" value="0">
-            </label>
+
+          <div class="stopwatch js-stopwatch js-switcher-body display-none" data-stopwatch-type="predelay" data-switcher-body-name="predelay">
+            <div class="stopwatch__top-line">
+              <form class="stopwatch__settings">
+                <div class="stopwatch__inputs">
+                  <label class="stopwatch__control">
+                    <span>Predelay, seconds:</span>
+                    <input class="input js-predelay" type="number" min="0" value="0">
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="stopwatch__middle-line">
+              <div class="stopwatch__clockface-and-controls">
+                <div class="stopwatch__clockface js-clockface">
+                  <span class="stopwatch__hours js-hours">00</span>:
+                  <span class="stopwatch__minutes js-minutes">00</span>:
+                  <span class="stopwatch__seconds js-seconds">00</span>.
+                  <span class="stopwatch__milliseconds js-milliseconds">00</span>
+                </div>
+                <div class="stopwatch__controls">
+                  <button class="stopwatch__button button js-start" type="button">Start</button>
+                  <button class="stopwatch__button button js-reset" type="button">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div class="stopwatch__bottom-line">
+              <div class="stopwatch__defaults">
+                <button class="button button--defaults js-save-defaults" type="button">Save defaults</button>
+                <button class="button button--defaults js-load-defaults" type="button">Load defaults</button>
+              </div>
+            </div>
           </div>
-          <div class="stopwatch__defaults">
-            <button class="button button--defaults js-save-defaults" type="button">Save defaults</button>
-            <button class="button button--defaults js-load-defaults" type="button">Load defaults</button>
+
+          <div class="stopwatch js-stopwatch js-switcher-body display-none" data-stopwatch-type="alarm" data-switcher-body-name="alarm">
+            <div class="stopwatch__top-line">
+              <form class="stopwatch__settings">
+                <div class="stopwatch__sound js-alarmer">
+                  <div class="stopwatch__samples">
+                    <label class="stopwatch__sample radio">
+                      <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="bell" checked>
+                      <span class="radio__text">Bell</span>
+                    </label>
+                    <label class="stopwatch__sample radio">
+                      <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth2">
+                      <span class="radio__text">Synth</span>
+                    </label>
+                  </div>
+                  <p class="stopwatch__volume">
+                    <label class="stopwatch__control">
+                      <span>Volume (0-100):</span>
+                      <input class="input js-volume" type="number" min="0" max="100" value="40">
+                    </label>
+                  </p>
+                  <p class="stopwatch__test-sound">
+                    <button class="stopwatch__button button button--sound js-test-sound" type="button">Test sound</button>
+                  </p>
+                </div>
+                <div class="stopwatch__inputs">
+                  <label class="stopwatch__control">
+                    <span>Predelay, seconds:</span>
+                    <input class="input js-predelay" type="number" min="0" value="0">
+                  </label>
+                  <label class="stopwatch__control">
+                    <span>Alarm period, seconds:</span>
+                    <input class="input js-alarm-period" type="number" min="0" value="1">
+                  </label>
+                  <label class="stopwatch__control">
+                    <span>Reference second:</span>
+                    <input class="input js-reference-second" type="number" min="0" value="0">
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="stopwatch__middle-line">
+              <div class="stopwatch__clockface-and-controls">
+                <div class="stopwatch__clockface js-clockface">
+                  <span class="stopwatch__hours js-hours">00</span>:
+                  <span class="stopwatch__minutes js-minutes">00</span>:
+                  <span class="stopwatch__seconds js-seconds">00</span>.
+                  <span class="stopwatch__milliseconds js-milliseconds">00</span>
+                </div>
+                <div class="stopwatch__controls">
+                  <button class="stopwatch__button button js-start" type="button">Start</button>
+                  <button class="stopwatch__button button js-reset" type="button">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div class="stopwatch__bottom-line">
+              <div class="stopwatch__defaults">
+                <button class="button button--defaults js-save-defaults" type="button">Save defaults</button>
+                <button class="button button--defaults js-load-defaults" type="button">Load defaults</button>
+              </div>
+            </div>
           </div>
-        </form>
-        <div class="stopwatch__container">
-          <p class="stopwatch__time js-time">
-            <span class="stopwatch__hours js-hours">00</span>:
-            <span class="stopwatch__minutes js-minutes">00</span>:
-            <span class="stopwatch__seconds js-seconds">00</span>.
-            <span class="stopwatch__milliseconds js-milliseconds">00</span>
-          </p>
-          <div class="stopwatch__controls">
-            <button class="stopwatch__button button js-start" type="button">Start</button>
-            <button class="stopwatch__button button js-reset" type="button">Reset</button>
+
+          <div class="stopwatch js-stopwatch js-switcher-body" data-stopwatch-type="training" data-switcher-body-name="training">
+            <div class="stopwatch__top-line">
+              <form class="stopwatch__settings">
+                <div class="stopwatch__inputs">
+                  <label class="stopwatch__control">
+                    <span>Predelay, seconds:</span>
+                    <input class="input js-predelay" type="number" min="0" value="0">
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="stopwatch__middle-line">
+              <div class="stopwatch__clockface-and-controls">
+                <div class="stopwatch__clockface js-clockface">
+                  <span class="stopwatch__hours js-hours">00</span>:
+                  <span class="stopwatch__minutes js-minutes">00</span>:
+                  <span class="stopwatch__seconds js-seconds">00</span>.
+                  <span class="stopwatch__milliseconds js-milliseconds">00</span>
+                </div>
+
+                <div class="stopwatch__controls stopwatch__controls--training">
+                  <button class="stopwatch__button button js-start" type="button">Start</button>
+                  <button class="stopwatch__button button js-reset" type="button">Reset</button>
+                </div>
+              </div>
+
+              <div class="stopwatch__periods">
+                <div class="stopwatch__period period period--with-mode stopwatch__period--exercise">
+                  <div class="period__middle-line">
+                    <div class="stopwatch__clockface stopwatch__clockface--period stopwatch__clockface--blue js-exercise-clockface">
+                      <span class="stopwatch__hours js-hours">00</span>:
+                      <span class="stopwatch__minutes js-minutes">00</span>:
+                      <span class="stopwatch__seconds js-seconds">00</span>.
+                      <span class="stopwatch__milliseconds stopwatch__milliseconds--period js-milliseconds">00</span>
+                    </div>
+                    <form class="stopwatch__settings">
+                      <div class="stopwatch__inputs">
+                        <label class="stopwatch__control js-exercise-period">
+                          <span>Exercise period, seconds:</span>
+                          <input class="input js-exercise-period-input" type="number" min="0" value="1">
+                        </label>
+                      </div>
+                      <div class="period__sound js-exercise-alarmer">
+                        <div class="stopwatch__samples">
+                          <label class="stopwatch__sample radio">
+                            <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="bell">
+                            <span class="radio__text">Bell</span>
+                          </label>
+                          <label class="stopwatch__sample radio">
+                            <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth2" checked>
+                            <span class="radio__text">Synth</span>
+                          </label>
+                        </div>
+                        <p class="stopwatch__volume">
+                          <label class="stopwatch__control">
+                            <span>Volume (0-100):</span>
+                            <input class="input js-volume" type="number" min="0" max="100" value="40">
+                          </label>
+                        </p>
+                        <p class="stopwatch__test-sound">
+                          <button class="stopwatch__button button button--sound js-test-sound" type="button">Test sound</button>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="period__bottom-line">
+                    <ul class="period__modes">
+                      <li class="period__mode-item">
+                        <label class="period__mode-label">
+                          <input class="period__mode-radio js-exercise-mode-input visually-hidden" type="radio" name="exercise-mode" value="auto">
+                          <span class="period__mode-caption">Auto</span>
+                        </label>
+                      </li>
+                      <li class="period__mode-item">
+                        <label class="period__mode-label">
+                          <input class="period__mode-radio js-exercise-mode-input visually-hidden" type="radio" name="exercise-mode" value="manual" checked>
+                          <span class="period__mode-caption">Manual</span>
+                        </label>
+                      </li>
+                    </ul>
+                    <button class="button button--finish js-finish-exercise" disabled>Finish Exercise</button>
+                  </div>
+                </div>
+
+                <div class="stopwatch__period period stopwatch__period--rest">
+                  <div class="period__middle-line">
+                    <div class="stopwatch__clockface stopwatch__clockface--period stopwatch__clockface--green js-rest-clockface">
+                      <span class="stopwatch__hours js-hours">00</span>:
+                      <span class="stopwatch__minutes js-minutes">00</span>:
+                      <span class="stopwatch__seconds js-seconds">00</span>.
+                      <span class="stopwatch__milliseconds stopwatch__milliseconds--period js-milliseconds">00</span>
+                    </div>
+                    <form class="stopwatch__settings">
+                      <div class="stopwatch__inputs">
+                        <label class="stopwatch__control js-rest-period">
+                          <span>Rest period, seconds:</span>
+                          <input class="input js-rest-period-input" type="number" min="0" value="2">
+                        </label>
+                      </div>
+                      <div class="period__sound js-rest-alarmer">
+                        <div class="stopwatch__samples">
+                          <label class="stopwatch__sample radio">
+                            <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="bell" checked>
+                            <span class="radio__text">Bell</span>
+                          </label>
+                          <label class="stopwatch__sample radio">
+                            <input class="radio__button visually-hidden js-sound-sample" type="radio" name="sample" value="synth2">
+                            <span class="radio__text">Synth</span>
+                          </label>
+                        </div>
+                        <p class="stopwatch__volume">
+                          <label class="stopwatch__control">
+                            <span>Volume (0-100):</span>
+                            <input class="input js-volume" type="number" min="0" max="100" value="40">
+                          </label>
+                        </p>
+                        <p class="stopwatch__test-sound">
+                          <button class="stopwatch__button button button--sound js-test-sound" type="button">Test sound</button>
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="period__bottom-line"></div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="stopwatch__bottom-line">
+              <div class="stopwatch__defaults">
+                <button class="button button--defaults js-save-defaults" type="button">Save defaults</button>
+                <button class="button button--defaults js-load-defaults" type="button">Load defaults</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div data-name="timings">
-
-
       </div>
 
     </main>

@@ -1,7 +1,8 @@
 .stopwatch {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr 80px;
   height: 100%;
+  padding-top: 30px;
 }
 
 .stopwatch__sound {
@@ -39,15 +40,45 @@
 }
 
 .stopwatch__control {
+  @include transition(0.1s);
+
   &:not(:last-child) {
     margin-right: 60px;
   }
+
+  &--disabled {
+    opacity: 0.3;
+    user-select: none;
+  }
+}
+
+.stopwatch__middle-line {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  row-gap: 40px;
+  justify-self: center;
+  align-content: space-around;
+  width: 100%;
+  max-width: 1400px;
+
+  margin-bottom: 50px;
+  padding: 0 50px;
+}
+
+.stopwatch__clockface-and-controls {
+  align-self: center;
+}
+
+.stopwatch__bottom-line {
+  background-color: $white;
+  border-top: 1px solid $grey;
 }
 
 .stopwatch__defaults {
   display: flex;
   justify-content: center;
-  margin: 0 0 40px;
+  align-items: center;
+  height: 100%;
 }
 
 .stopwatch__container {
@@ -56,13 +87,13 @@
   justify-content: center;
 }
 
-.stopwatch__time {
+.stopwatch__clockface {
   position: relative;
 
   display: flex;
   align-items: flex-end;
   width: min-content;
-  margin: 0 auto 100px;
+  margin: 0 auto 50px;
 
   font-size: 150px;
   line-height: 1;
@@ -82,6 +113,12 @@
     }
   }
 
+  &--period {
+    margin: 0 auto 20px;
+
+    font-size: 75px;
+  }
+
   &--blue {
     color: $blue;
   }
@@ -97,15 +134,33 @@
   font-size: 50px;
 
   vertical-align: text-bottom;
+
+  &--period {
+    padding-bottom: 5px;
+
+    font-size: 17px;
+  }
 }
 
 .stopwatch__controls {
   display: flex;
   justify-content: center;
+
+  &--training {
+    margin-bottom: 0px;
+  }
 }
 
 .stopwatch__button {
   &:not(:last-child) {
     margin-right: 40px;
   }
+}
+
+.stopwatch__periods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: start;
+  column-gap: 60px;
 }

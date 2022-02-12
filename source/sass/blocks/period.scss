@@ -1,0 +1,88 @@
+.period {
+  padding: 20px;
+
+  border-radius: 20px;
+  box-shadow: $box-shadow;
+
+  display: grid;
+  grid-template-rows: 1fr 40px;
+  row-gap: 40px;
+
+  &--with-mode {
+    display: grid;
+    grid-template-rows: 1fr 40px;
+    row-gap: 40px;
+  }
+}
+
+.period__sound {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.period__modes {
+  display: flex;
+  align-items: center;
+
+  @include reset-list;
+
+  min-height: 40px;
+}
+
+.period__mode-item {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.period__mode-caption {
+  display: block;
+  padding: 5px 10px;
+
+  font-size: 14px;
+
+  border: 1px solid $light-3;
+  border-radius: 10px;
+
+  @include transition(0.1s);
+}
+
+.period__mode-radio:not(:checked) + .period__mode-caption {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light;
+  }
+
+  &:active {
+    padding: 6px 10px 4px;
+  }
+}
+
+.period__mode-radio:checked + .period__mode-caption {
+  background-color: $light-3;
+  border: 1px solid $transparent;
+
+  cursor: default;
+}
+
+.period__mode-radio:disabled + .period__mode-caption {
+  opacity: 0.3;
+  cursor: default;
+  user-select: none;
+
+  &:hover {
+    background-color: $white;
+  }
+
+  &:active {
+    padding: 5px 10px;
+  }
+}
+
+.period__bottom-line {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  justify-content: center;
+}
