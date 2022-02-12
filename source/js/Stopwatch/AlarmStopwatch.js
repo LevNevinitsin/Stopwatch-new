@@ -1,5 +1,5 @@
-import { Util }              from '../Util.js';
-import { Alarmer }           from '../Alarmer.js';
+import { Util }              from './../Util.js';
+import { Alarmer }           from './../Alarmer.js';
 import { PredelayStopwatch } from './PredelayStopwatch.js';
 
 class AlarmStopwatch extends PredelayStopwatch {
