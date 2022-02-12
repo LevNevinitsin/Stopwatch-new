@@ -253,4 +253,3 @@ class TrainingStopwatch extends PredelayStopwatch {
 }
 
 export { TrainingStopwatch }
-
