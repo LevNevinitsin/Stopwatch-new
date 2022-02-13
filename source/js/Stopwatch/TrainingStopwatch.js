@@ -4,16 +4,16 @@ import { Alarmer }           from '../Alarmer.js';
 import { PredelayStopwatch } from './PredelayStopwatch.js';
 
 class TrainingStopwatch extends PredelayStopwatch {
-  _EXERCISE_CLOCK_FACE_NODE_SELECTOR       = '.js-exercise-clockface';
-  _REST_CLOCK_FACE_NODE_SELECTOR           = '.js-rest-clockface';
-  _EXERCISE_PERIOD_INPUT_SELECTOR          = '.js-exercise-period-input';
-  _REST_PERIOD_INPUT_SELECTOR              = '.js-rest-period-input';
-  _EXERCISE_ALARMER_NODE_SELECTOR          = '.js-exercise-alarmer';
-  _REST_ALARMER_NODE_SELECTOR              = '.js-rest-alarmer';
-  _DEFAULTS                                = ['predelay', 'exercisePeriod', 'restPeriod'];
-  _DEFAULTS_PREFIX                         = 'training';
-  _EXERCISE_MODES_INPUTS_SELECTOR          = '.js-exercise-mode-input';
-  _FINISH_EXERCISE_NODE_SELECTOR           = '.js-finish-exercise';
+  _EXERCISE_CLOCK_FACE_NODE_SELECTOR = '.js-exercise-clockface';
+  _REST_CLOCK_FACE_NODE_SELECTOR     = '.js-rest-clockface';
+  _EXERCISE_PERIOD_INPUT_SELECTOR    = '.js-exercise-period-input';
+  _REST_PERIOD_INPUT_SELECTOR        = '.js-rest-period-input';
+  _EXERCISE_ALARMER_NODE_SELECTOR    = '.js-exercise-alarmer';
+  _REST_ALARMER_NODE_SELECTOR        = '.js-rest-alarmer';
+  _DEFAULTS                          = ['predelay', 'exercisePeriod', 'restPeriod'];
+  _DEFAULTS_PREFIX                   = 'training';
+  _EXERCISE_MODES_INPUTS_SELECTOR    = '.js-exercise-mode-input';
+  _FINISH_EXERCISE_NODE_SELECTOR     = '.js-finish-exercise';
 
   _exerciseClockFaceNode;
   _restClockFaceNode;
@@ -88,6 +88,15 @@ class TrainingStopwatch extends PredelayStopwatch {
     this._finishExerciseNode.addEventListener('click', () => {
       this._onFinishExerciseNodeClick();
     });
+
+    window.addEventListener('keydown', (evt) => {
+      evt.preventDefault();
+      const finishExerciseButton = this._finishExerciseNode;
+
+      if (evt.code === 'Space' && !finishExerciseButton.disabled) {
+        finishExerciseButton.dispatchEvent(new Event('click'));
+      }
+    })
   }
 
   loadDefaults() {
