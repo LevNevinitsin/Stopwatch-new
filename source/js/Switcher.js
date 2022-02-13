@@ -21,7 +21,7 @@ class Switcher {
         this._currentBody.classList.add('display-none');
 
         const chosenBody = Array.from(this._switcherBodiesNodes).find((switcherBodyNode) => {
-          return switcherBodyNode.dataset.stopwatchType === evt.target.value;
+          return switcherBodyNode.dataset.switcherBodyName === evt.target.value;
         });
 
         chosenBody.classList.remove('display-none');

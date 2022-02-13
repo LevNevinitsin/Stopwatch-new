@@ -16,7 +16,7 @@ class ClockFace {
     this.#minutesNode      = this.#clockFaceNode.querySelector('.js-minutes');
     this.#secondsNode      = this.#clockFaceNode.querySelector('.js-seconds');
     this.#millisecondsNode = this.#clockFaceNode.querySelector('.js-milliseconds');
-    this._isMinusNeeded = isMinusNeeded;
+    this._isMinusNeeded    = isMinusNeeded;
   }
 
   renderTime(timePassed) {

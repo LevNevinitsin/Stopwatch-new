@@ -98,7 +98,7 @@ class AlarmStopwatch extends PredelayStopwatch {
 
     if (this._periodTimestamp && now - this._periodTimestamp > this._alarmPeriod) {
       this._periodTimestamp += this._alarmPeriod;
-      this._alarmer.playSound();;
+      this._alarmer.playSound();
     }
   }
 
