@@ -90,10 +90,10 @@ class TrainingStopwatch extends PredelayStopwatch {
     });
 
     window.addEventListener('keydown', (evt) => {
-      evt.preventDefault();
       const finishExerciseButton = this._finishExerciseNode;
 
       if (evt.code === 'Space' && !finishExerciseButton.disabled) {
+        evt.preventDefault();
         finishExerciseButton.dispatchEvent(new Event('click'));
       }
     })
